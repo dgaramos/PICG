@@ -10,8 +10,8 @@ def imread (imagem): #inserindo imagem por parametro
     img = npimg.imread(imagem) #Convertendo a imagem para ndarray
     print img #Verificando conversao da imagem
 
-    plt.imshow(img) #Convertendo ndarray para pyplot
-    plt.show()  #imprimindo pyplot
+#    plt.imshow(img) #Convertendo ndarray para pyplot
+#    plt.show()  #imprimindo imagem como imagem
 
 #_____________Funcao nchannels (terceira questao)
 def nchannels (imagem): #inserindo imagem por parametro
@@ -28,7 +28,9 @@ def size (imagem):
     print le
 
 #testando funcoes
-#imread ('gostosa.tif') #terceira questao
+imread ('gostosa.jpg') #primeira questao letra a
+imread ('gostosa.tif') #primeira questao letra b
+imread ('50x50.gif') #primeira questao letra c
 #nchannels('gostosa.tif')
 #nchannels('gostosa.jpg')
-size('gostosa.jpg')
+#size('gostosa.jpg')
