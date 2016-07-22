@@ -36,7 +36,7 @@ def size (imagem): #inserindo imagem por parametro
 #_____________Funcao rgb2gray (quinta questao)
 def rgb2gray(imagem):
 	img = npimg.imread(imagem)
- 	gray = np.dot(img[...,:3],[0.299, 0.587, 0.144])#Pesos especificados no pdf
+ 	gray = np.dot(img[...,:3],[0.299, 0.587, 0.144])#Multiplicacao de matrizes: a matriz da imagem pelo vetor de pesos.
 	plt.imshow(gray, cmap = plt.get_cmap('gray'))
 	plt.show()#Imprime a imagem	
 
