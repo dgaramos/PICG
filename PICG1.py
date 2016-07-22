@@ -1,5 +1,8 @@
-#Primeira Lista PIGC
 
+'''#Primeira Lista PIGC
+Alunos: Alexandre Santos Maciel
+        Danilo Goncalves Alves Ramos
+'''
 #Imports necessarios
 import matplotlib.pyplot as plt
 import matplotlib.image as npimg
@@ -11,32 +14,37 @@ def imread (imagem): #inserindo imagem por parametro
     print img #Verificando conversao da imagem
 
 #    plt.imshow(img) #Convertendo ndarray para pyplot
-#    plt.show()  #imprimindo imagem como imagem
+#    plt.show()  #imprimindo ndarray como imagem
 
 #_____________Funcao nchannels (terceira questao)
 def nchannels (imagem): #inserindo imagem por parametro
     img = npimg.imread(imagem) #Convertendo a imagem para ndarray
-    print len(img[0])
+#verificando se a imagem tem mais de uma cor
+    try:
+        print len(img[0][0])
+    except:
+        print 1
+
+#_____________Funcao size (quarta questao)
+def size (imagem): #inserindo imagem por parametro
+    img = npimg.imread(imagem) #Convertendo a imagem para ndarray
+#criando um array size com a primeira posicao sendo a largura e a segunda sendo a altura
+    size = [len(img[0]), len(img)]
+
+    print size
 
 #_____________Funcao rgb2gray (quinta questao)
 def rgb2gray(imagem):
 	img = npimg.imread(imagem)
  	gray = np.dot(img[...,:3],[0.299, 0.587, 0.144])#Pesos especificados no pdf
 	plt.imshow(gray, cmap = plt.get_cmap('gray'))
-	plt.show()	
+	plt.show()#Imprime a imagem	
 
-def size (imagem):
-    img = npimg.imread(imagem)
-    size = [len(img[0]), len(img)]
-
-    print size
-
-#testando funcoes
+#-------------------testando funcoes------------------------
 #imread ('gostosa.jpg') #segunda questao letra a
 #imread ('gostosa.tif') #segunda questao letra b
 #imread ('50x50.gif') #segunda questao letra c
-#nchannels('gostosa.tif')
-#nchannels('gostosa.jpg')
-rgb2gray('gostosa.jpg')
-#size ('gostosa.jpg')
-#size('gostosa.jpg')
+#nchannels('gostosa.tif') #terceira questao com escala de cinza
+#nchannels('gostosa.jpg') #terceira questao com RGB
+#size ('gostosa.jpg')#imprimindo quarta questao
+rgb2gray('gostosa.jpg')#quinta questao
