@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 	'''#Primeira Lista PIGC
+=======
+'''#Primeira Lista PIGC
+>>>>>>> 4c427b872b9080e2738509c79e89795d74e3b4ce
 Alunos: Alexandre Santos Maciel
         Danilo Goncalves Alves Ramos
 '''
@@ -33,7 +37,12 @@ def size (imagem): #inserindo imagem por parametro
 
     print size
 
+<<<<<<< HEAD
 	#_____________Funcao rgb2gray (quinta questao)
+=======
+
+#_____________Funcao rgb2gray (quinta questao)
+>>>>>>> 4c427b872b9080e2738509c79e89795d74e3b4ce
 def rgb2gray(imagem):
 	img = npimg.imread(imagem)
  	gray = np.dot(img[...,:3],[0.299, 0.587, 0.144])#Multiplicacao de matrizes: a matriz da imagem pelo vetor de pesos.
@@ -45,6 +54,12 @@ def rgb2gray(imagem):
 #imread ('gostosa.jpg') #segunda questao letra a
 #imread ('gostosa.tif') #segunda questao letra b
 #imread ('50x50.gif') #segunda questao letra c
+<<<<<<< HEAD
+=======
+#nchannels('gostosa.tif') #terceira questao com escala de cinza
+#nchannels('gostosa.jpg') #terceira questao com RGB
+#size ('gostosa.jpg')#imprimindo quarta questao
+>>>>>>> 4c427b872b9080e2738509c79e89795d74e3b4ce
 #nchannels('gostosa.tif') #terceira questao com escala de cinza
 #nchannels('gostosa.jpg') #terceira questao com RGB
 #size ('gostosa.jpg')#imprimindo quarta questao
