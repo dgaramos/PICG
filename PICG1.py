@@ -33,6 +33,13 @@ def size (imagem): #inserindo imagem por parametro
 
     print size
 
+	#_____________Funcao rgb2gray (quinta questao)
+def rgb2gray(imagem):
+	img = npimg.imread(imagem)
+ 	gray = np.dot(img[...,:3],[0.299, 0.587, 0.144])#Multiplicacao de matrizes: a matriz da imagem pelo vetor de pesos.
+	plt.imshow(gray, cmap = plt.get_cmap('gray'))
+	plt.show()#Imprime a imagem
+
 
 #-------------------testando funcoes------------------------
 #imread ('gostosa.jpg') #segunda questao letra a
@@ -41,3 +48,4 @@ def size (imagem): #inserindo imagem por parametro
 #nchannels('gostosa.tif') #terceira questao com escala de cinza
 #nchannels('gostosa.jpg') #terceira questao com RGB
 #size ('gostosa.jpg')#imprimindo quarta questao
+rgb2gray('gostosa.jpg')#quinta questao
