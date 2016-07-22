@@ -16,21 +16,22 @@ def imread (imagem): #inserindo imagem por parametro
 #_____________Funcao nchannels (terceira questao)
 def nchannels (imagem): #inserindo imagem por parametro
     img = npimg.imread(imagem) #Convertendo a imagem para ndarray
-    print len(img[1])
+    print len(img[0])
 
 
 
 
 def size (imagem):
     img = npimg.imread(imagem)
-    le = img.shape
+    size = [len(img[0]), len(img)]
 
-    print le
+    print size
 
 #testando funcoes
-imread ('gostosa.jpg') #primeira questao letra a
-imread ('gostosa.tif') #primeira questao letra b
-imread ('50x50.gif') #primeira questao letra c
+#imread ('gostosa.jpg') #segunda questao letra a
+#imread ('gostosa.tif') #segunda questao letra b
+#imread ('50x50.gif') #segunda questao letra c
 #nchannels('gostosa.tif')
 #nchannels('gostosa.jpg')
+size ('gostosa.jpg')
 #size('gostosa.jpg')
