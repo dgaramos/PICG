@@ -1,4 +1,3 @@
-
 '''#Primeira Lista PIGC
 Alunos: Alexandre Santos Maciel
         Danilo Goncalves Alves Ramos
@@ -33,6 +32,7 @@ def size (imagem): #inserindo imagem por parametro
 
     print size
 
+
 #_____________Funcao rgb2gray (quinta questao)
 def rgb2gray(imagem):
 	img = npimg.imread(imagem)
@@ -44,6 +44,9 @@ def rgb2gray(imagem):
 #imread ('gostosa.jpg') #segunda questao letra a
 #imread ('gostosa.tif') #segunda questao letra b
 #imread ('50x50.gif') #segunda questao letra c
+#nchannels('gostosa.tif') #terceira questao com escala de cinza
+#nchannels('gostosa.jpg') #terceira questao com RGB
+#size ('gostosa.jpg')#imprimindo quarta questao
 #nchannels('gostosa.tif') #terceira questao com escala de cinza
 #nchannels('gostosa.jpg') #terceira questao com RGB
 #size ('gostosa.jpg')#imprimindo quarta questao
