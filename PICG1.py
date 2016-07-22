@@ -18,8 +18,12 @@ def nchannels (imagem): #inserindo imagem por parametro
     img = npimg.imread(imagem) #Convertendo a imagem para ndarray
     print len(img[0])
 
-
-
+#_____________Funcao rgb2gray (quinta questao)
+def rgb2gray(imagem):
+	img = npimg.imread(imagem)
+ 	gray = np.dot(img[...,:3],[0.299, 0.587, 0.144])#Pesos especificados no pdf
+	plt.imshow(gray, cmap = plt.get_cmap('gray'))
+	plt.show()	
 
 def size (imagem):
     img = npimg.imread(imagem)
@@ -33,5 +37,6 @@ def size (imagem):
 #imread ('50x50.gif') #segunda questao letra c
 #nchannels('gostosa.tif')
 #nchannels('gostosa.jpg')
-size ('gostosa.jpg')
+rgb2gray('gostosa.jpg')
+#size ('gostosa.jpg')
 #size('gostosa.jpg')
