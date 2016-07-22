@@ -1,4 +1,4 @@
-'''#Primeira Lista PIGC
+	'''#Primeira Lista PIGC
 Alunos: Alexandre Santos Maciel
         Danilo Goncalves Alves Ramos
 '''
@@ -6,6 +6,7 @@ Alunos: Alexandre Santos Maciel
 import matplotlib.pyplot as plt
 import matplotlib.image as npimg
 import numpy as np
+
 
 #_____________Funcao imread (segunda questao)
 def imread (imagem): #inserindo imagem por parametro
@@ -32,10 +33,11 @@ def size (imagem): #inserindo imagem por parametro
 
     print size
 
+
 #-------------------testando funcoes------------------------
 #imread ('gostosa.jpg') #segunda questao letra a
 #imread ('gostosa.tif') #segunda questao letra b
 #imread ('50x50.gif') #segunda questao letra c
-nchannels('gostosa.tif') #terceira questao com escala de cinza
-nchannels('gostosa.jpg') #terceira questao com RGB
+#nchannels('gostosa.tif') #terceira questao com escala de cinza
+#nchannels('gostosa.jpg') #terceira questao com RGB
 #size ('gostosa.jpg')#imprimindo quarta questao
