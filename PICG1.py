@@ -13,9 +13,6 @@ def imread (imagem): #inserindo imagem por parametro
     img = npimg.imread(imagem) #Convertendo a imagem para ndarray
     print img #Verificando conversao da imagem
 
-#    plt.imshow(img) #Convertendo ndarray para pyplot
-#    plt.show()  #imprimindo ndarray como imagem
-
 #_____________Funcao nchannels (terceira questao)
 def nchannels (imagem): #inserindo imagem por parametro
     img = npimg.imread(imagem) #Convertendo a imagem para ndarray
@@ -37,11 +34,19 @@ def size (imagem): #inserindo imagem por parametro
 def rgb2gray(imagem):
 	img = npimg.imread(imagem)#Convertendo a imagem para ndarray
  	gray = np.dot(img[...,:3],[0.299, 0.587, 0.144])#Multiplicacao de matrizes: a matriz da imagem pelo vetor de pesos.
-	plt.imshow(gray, cmap = plt.get_cmap('gray'))
-	plt.show()#Imprime a imagem
+	print gray
 
 #_____________Funcao imreadgray (sexta questao)
 def imreadgray(imagem):
+	img = npimg.imread(imagem) #Convertendo a imagem para ndarray
+	try:
+		gray = np.dot(img[...,:3],[0.299, 0.587, 0.144])#Multiplicacao de matrizes: a matriz da imagem pelo vetor de pesos.
+		print gray
+	except:
+		print img
+
+#_____________Funcao imshow (setima questao)
+def imshow(imagem):
 	img = npimg.imread(imagem) #Convertendo a imagem para ndarray
 	try:
 		gray = np.dot(img[...,:3],[0.299, 0.587, 0.144])#Multiplicacao de matrizes: a matriz da imagem pelo vetor de pesos.
@@ -50,7 +55,6 @@ def imreadgray(imagem):
 	except:
 		plt.imshow(img, cmap = plt.get_cmap('gray')) #Convertendo ndarray para pyplot
 		plt.show() #imprimindo ndarray como imagem
-
 
 #-------------------testando funcoes------------------------
 #imread ('gostosa.jpg') #segunda questao letra a
@@ -62,3 +66,5 @@ def imreadgray(imagem):
 #rgb2gray('gostosa.jpg')#quinta questao
 #imreadgray('gostosa.jpg')
 #imreadgray('gostosa.tif')
+#imshow('gostosa.jpg')
+#imshow('gostosa.tif')
