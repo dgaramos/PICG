@@ -5,6 +5,7 @@ Alunos: Alexandre Santos Maciel
 #Imports necessarios
 import matplotlib.pyplot as plt
 import matplotlib.image as npimg
+import matplotlib.colors as plt_color
 import numpy as np
 
 
@@ -37,15 +38,8 @@ def rgb2gray(imagem):
 	else:
 		print "Essa imagem ja esta em escala de cinza.\nPor favor insira uma imagem RGB para que possa ser convertida"
 
-#_____________Funcao imreadgray (sexta questao)
-def imreadgray(imagem):
-	if (nchannels(imagem) == 3):
-		return rgb2gray(imagem)
-	else:
-		return imread(imagem)
-
-#_____________Funcao imshow (setima questao)
-def imshow(imagem):
+#_____________Funcao rgb2gray2 (quinta questao)
+def rgb2gray2(imagem):
 	img = imread(imagem) #Convertendo a imagem para ndarray
 	try:
 		gray = np.dot(img[...,:3],[0.299, 0.587, 0.144])#Multiplicacao de matrizes: a matriz da imagem pelo vetor de pesos.
@@ -55,6 +49,36 @@ def imshow(imagem):
 		plt.imshow(img, cmap = plt.get_cmap('gray')) #Convertendo ndarray para pyplot
 		plt.show() #imprimindo ndarray como imagem
 
+
+#_____________Funcao imreadgray (sexta questao)
+def imreadgray(imagem):
+	if (nchannels(imagem) == 3):
+		return rgb2gray(imagem)
+	else:
+		return imread(imagem)
+
+#_____________Funcao imshow (setima questao)
+def imshow(imagem):
+	img = imread(imagem)
+	if (nchannels(imagem) != 3): 
+		#Se a imagem for cinza
+		plt.imshow(img,cmap = plt.get_cmap('gray'),interpolation="nearest")
+		plt.show()
+	else:
+		image=plt.imshow(img, interpolation="nearest")
+		plt.show()
+
+
+#______________Funcao thresh(oitava questao)
+def thresh(imagem,limiar):
+	img = imread(imagem)
+		
+
+#_____________Funcao negative(nona questao)
+def negative(imagem):
+	img = imread(imagem)
+	plt.imshow(img, plt_color.norm( 1))
+	plt.show()
 #-------------------testando funcoes------------------------
 #print imread ('gostosa.jpg') #segunda questao letra a
 #print imread ('gostosa.tif') #segunda questao letra b
@@ -68,3 +92,5 @@ def imshow(imagem):
 #print imreadgray('gostosa.tif') #sexta questao
 #print imshow('gostosa.jpg') #setima questao
 #print imshow('gostosa.tif') #setima questao
+#imshow('gostosa.tif')
+negative('gostosa.jpg')
