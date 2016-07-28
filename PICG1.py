@@ -68,9 +68,18 @@ def imshow(imagem):
 	else:
 		image=plt.imshow(img, interpolation="nearest")
 		plt.show()
+
+
+#______________Funcao thresh(oitava questao)
+def thresh(imagem,limiar):
+	img = imread(imagem)
 		
 
-
+#_____________Funcao negative(nona questao)
+def negative(imagem):
+	img = imread(imagem)
+	plt.imshow(img, plt_color.norm( 1))
+	plt.show()
 #-------------------testando funcoes------------------------
 #print imread ('gostosa.jpg') #segunda questao letra a
 #print imread ('gostosa.tif') #segunda questao letra b
@@ -84,4 +93,5 @@ def imshow(imagem):
 #print imreadgray('gostosa.tif') #sexta questao
 #print imshow('gostosa.jpg') #setima questao
 #print imshow('gostosa.tif') #setima questao
-imshow('gostosa.tif')
+#imshow('gostosa.tif')
+negative('gostosa.jpg')
