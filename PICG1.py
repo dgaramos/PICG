@@ -38,13 +38,6 @@ def rgb2gray(imagem):
 	else:
 		print "Essa imagem ja esta em escala de cinza.\nPor favor insira uma imagem RGB para que possa ser convertida"
 
-#_____________Funcao imreadgray (sexta questao)
-def imreadgray(imagem):
-	if (nchannels(imagem) == 3):
-		return rgb2gray(imagem)
-	else:
-		return imread(imagem)
-
 #_____________Funcao rgb2gray2 (quinta questao)
 def rgb2gray2(imagem):
 	img = imread(imagem) #Convertendo a imagem para ndarray
@@ -57,12 +50,20 @@ def rgb2gray2(imagem):
 		plt.show() #imprimindo ndarray como imagem
 
 
-#_____________Funcao negative (nona questao)
+#_____________Funcao imreadgray (sexta questao)
+def imreadgray(imagem):
+	if (nchannels(imagem) == 3):
+		return rgb2gray(imagem)
+	else:
+		return imread(imagem)
+
+
+#_____________Funcao imshow (setima questao)
 def imshow(imagem):
 	img = imread(imagem)
-	if (nchannels(imagem) != 3):
-		
-		plt.imshow(img,cmap = plt.get_cmap('gray'))
+	if (nchannels(imagem) != 3): 
+		#Se a imagem for cinza
+		plt.imshow(img,cmap = plt.get_cmap('gray'),interpolation="nearest")
 		plt.show()
 	else:
 		image=plt.imshow(img, interpolation="nearest")
