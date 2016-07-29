@@ -139,29 +139,24 @@ def contrast(imagem, r, m):
 def hist(imagem):
 		
 	img = imread(imagem)
-	
 	tamanho = size(imagem)
-	print img
-	if (nchannels(imagem) == 3):
-		resultado = 255*[3*[0]]
-		#print resultado
+	resultado_colorido = [[0 for x in range(3)] for y in range(256)] #Cria uma matriz de 3 coluna e 255 linhas
+	resultado_cinza = [0 for x in range (256)] #Cria um vetor de 255 posicoes
+
+	if (nchannels(imagem) == 3):#Imagem colorida
 		for x in range(0, len(img)): 	#Eixo x
 			for y in xrange(0, len(img[0])): #Eixo y
-				print resultado
-				resultado[img[x][y][0]] [0] = (resultado[img[x][y][0]][0]) + 1
-				resultado[img[x][y][1]] [1] = (resultado[img[x][y][1]][0]) + 1
-				resultado[img[x][y][2]] [2] = (resultado[img[x][y][0]][0]) + 1	
-				#resultado[img[x][y][0]][img[x][y][1]][img[x][y][2]]=(resultado[img[x][y][0]][img[x][y][1]][img[x][y][2]])+1
-					
+				resultado_colorido[img[x][y][0]] [0] = (resultado_colorido[img[x][y][0]][0]) + 1 #R
+				resultado_colorido[img[x][y][1]] [1] = (resultado_colorido[img[x][y][1]][0]) + 1 #G
+				resultado_colorido[img[x][y][2]] [2] = (resultado_colorido[img[x][y][0]][0]) + 1 #B
+		return resultado_colorido
+
 	else: #Imagem cinza
-		print "lol"
-		result  = [0] * 255
-		#Ta dando erro quando o limite superior do primeiro laco e menor que o limite superior
-		#do segundo laco.Fiz uma gambiarra para funcionar temporariamente
 		for x in xrange(0, len(img)):
 			for y in xrange(0, len(img[0])):
-				result[img[x][y]] = (result[img[x][y]]) + 1
-	print result
+				resultado_cinza[img[x][y]] = (resultado_cinza[img[x][y]]) + 1
+		return resultado_cinza
+	
 
 #-------------------testando funcoes------------------------
 #print imread ('gostosa.jpg') #segunda questao letra a
@@ -178,8 +173,8 @@ def hist(imagem):
 #print imshow('gostosa.tif') #setima questao
 #thresh('gostosa.jpg', 100) #oitava questao
 #negative('gostosa.jpg') #nona questao
-contrast('gostosa.jpg', 0.761354, 1000)
-
+#contrast('gostosa.jpg', 0.761354, 1000)
+print hist('gostosa.tif')
 
 '''SCRATCHPAD
 =========================SATURACAO===================
@@ -197,4 +192,4 @@ newImg[x][y][2]= r*(img[x][y][2]-m)+m
 if (newImg[x][y][2]  >= 255):
     newImg[x][y][2]  = 255
 elif (newImg[x][y][2] <= 0):
-    newImg[x][y][2] = 0
+    newImg[x][y][2] = 0'''
