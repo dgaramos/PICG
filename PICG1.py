@@ -60,7 +60,7 @@ def imreadgray(imagem):
 #_____________Funcao imshow (setima questao)
 def imshow(imagem):
 	img = imread(imagem)
-	if (nchannels(imagem) != 3): 
+	if (nchannels(imagem) != 3):
 		#Se a imagem for cinza
 		plt.imshow(img,cmap = plt.get_cmap('gray'),interpolation="nearest")
 		plt.show()
@@ -72,9 +72,8 @@ def imshow(imagem):
 #______________Funcao thresh(oitava questao)
 def thresh(imagem,limiar):
 	img = imread(imagem)
-		
 
-<<<<<<< HEAD
+
 #_____________Funcao negative(nona questao)
 def negative(imagem):
 	img = imread(imagem)
@@ -111,7 +110,6 @@ def thresh(imagem, lim):
     #plt.show()
     return newImg
 
-
 #_____________Funcao negative (nona questao)
 def negative(imagem):
     img = imread(imagem)
@@ -123,17 +121,13 @@ def negative(imagem):
     else: #verificando imagem RGB
         for x in range(0, len(newImg)): #iterando array em largura e altura
             for y in range(0, len(newImg[0])):
-                newImg[x][y][0] = 255 - newImg[x][y][0] #Invertendo a imagem 
+                newImg[x][y][0] = 255 - newImg[x][y][0] #Invertendo a imagem
                 newImg[x][y][1] = 255 - newImg[x][y][1]
                 newImg[x][y][2] = 255 - newImg[x][y][2]
     #plt.imshow(newImg) #Convertendo ndarray para pyplot
     #plt.show()
     return newImg
 
-
-
-
->>>>>>> danilo
 #-------------------testando funcoes------------------------
 #print imread ('gostosa.jpg') #segunda questao letra a
 #print imread ('gostosa.tif') #segunda questao letra b
@@ -147,10 +141,5 @@ def negative(imagem):
 #print imreadgray('gostosa.tif') #sexta questao
 #print imshow('gostosa.jpg') #setima questao
 #print imshow('gostosa.tif') #setima questao
-<<<<<<< HEAD
-#imshow('gostosa.tif')
-negative('gostosa.jpg')
-=======
 thresh('gostosa.jpg', 100)
 #negative('gostosa.jpg') #nona questao
->>>>>>> danilo
