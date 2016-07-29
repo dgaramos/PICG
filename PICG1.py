@@ -57,11 +57,10 @@ def imreadgray(imagem):
 	else:
 		return imread(imagem)
 
-
 #_____________Funcao imshow (setima questao)
 def imshow(imagem):
 	img = imread(imagem)
-	if (nchannels(imagem) != 3): 
+	if (nchannels(imagem) != 3):
 		#Se a imagem for cinza
 		plt.imshow(img,cmap = plt.get_cmap('gray'),interpolation="nearest")
 		plt.show()
@@ -70,16 +69,100 @@ def imshow(imagem):
 		plt.show()
 
 
-#______________Funcao thresh(oitava questao)
-def thresh(imagem,limiar):
-	img = imread(imagem)
-		
+#_____________Funcao thresh (oitava questao)
+def thresh(imagem, lim):
+    img = imread(imagem)
+    newImg = img.copy()
+    if (nchannels(imagem) == 1): #verificando imagem em escala de cinza
+        for x in range(0, len(newImg)): #iterando array em largura e altura
+            for y in range(0, len(newImg[0])):
+                if (newImg[x][y] >= lim): #Verificando limiar
+                    newImg[x][y] = 255
+                else:
+                    newImg[x][y] = 0
+    else: #verificando imagem RGB
+        for x in range(0, len(newImg)): #iterando array em largura e altura
+            for y in range(0, len(newImg[0])):
+                if (newImg[x][y][0] >= lim): #Verificando limiar
+                    newImg[x][y][0] = 255
+                else:
+                    newImg[x][y][0] = 0
+                if (newImg[x][y][1] >= lim):
+                    newImg[x][y][1] = 255
+                else:
+                    newImg[x][y][1] = 0
+                if (newImg[x][y][2] >= lim):
+                    newImg[x][y][2] = 255
+                else:
+                    newImg[x][y][2] = 0
+    #plt.imshow(newImg) #Convertendo ndarray para pyplot
+    #plt.show()
+    return newImg
 
-#_____________Funcao negative(nona questao)
+#_____________Funcao negative (nona questao)
 def negative(imagem):
+    img = imread(imagem)
+    newImg = img.copy()
+    if (nchannels(imagem) == 1): #verificando imagem em escala de cinza
+        for x in range(0, len(newImg)): #iterando array em largura e altura
+            for y in range(0, len(newImg[0])):
+                newImg[x][y] = 255 - newImg[x][y] #Invertendo a imagem
+    else: #verificando imagem RGB
+        for x in range(0, len(newImg)): #iterando array em largura e altura
+            for y in range(0, len(newImg[0])):
+                newImg[x][y][0] = 255 - newImg[x][y][0] #Invertendo a imagem
+                newImg[x][y][1] = 255 - newImg[x][y][1]
+                newImg[x][y][2] = 255 - newImg[x][y][2]
+    #plt.imshow(newImg) #Convertendo ndarray para pyplot
+    #plt.show()
+    return newImg
+
+#_____________Funcao contrast (decima questao)
+def contrast(imagem, r, m):
+    img = imread(imagem)
+    newImg = img.copy()
+    if (nchannels(imagem) == 1): #verificando imagem em escala de cinza
+        for x in range(0, len(newImg)): #iterando array em largura e altura
+            for y in range(0, len(newImg[0])):
+                newImg[x][y] = r*(img[x][y]-m)+m
+    else: #verificando imagem RGB
+        for x in range(0, len(newImg)): #iterando array em largura e altura
+            for y in range(0, len(newImg[0])):
+                newImg[x][y][0] = r*(img[x][y][0]-m)+m
+                newImg[x][y][1] = r*(img[x][y][1]-m)+m
+                newImg[x][y][2]= r*(img[x][y][2]-m)+m
+    plt.imshow(newImg) #Convertendo ndarray para pyplot
+    plt.show()
+    return newImg
+
+#_______________Funcao hist (Decia primeira questao)
+def hist(imagem):
+		
 	img = imread(imagem)
-	plt.imshow(img, plt_color.norm( 1))
-	plt.show()
+	
+	tamanho = size(imagem)
+	print img
+	if (nchannels(imagem) == 3):
+		resultado = 255*[3*[0]]
+		#print resultado
+		for x in range(0, len(img)): 	#Eixo x
+			for y in xrange(0, len(img[0])): #Eixo y
+				print resultado
+				resultado[img[x][y][0]] [0] = (resultado[img[x][y][0]][0]) + 1
+				resultado[img[x][y][1]] [1] = (resultado[img[x][y][1]][0]) + 1
+				resultado[img[x][y][2]] [2] = (resultado[img[x][y][0]][0]) + 1	
+				#resultado[img[x][y][0]][img[x][y][1]][img[x][y][2]]=(resultado[img[x][y][0]][img[x][y][1]][img[x][y][2]])+1
+					
+	else: #Imagem cinza
+		print "lol"
+		result  = [0] * 255
+		#Ta dando erro quando o limite superior do primeiro laco e menor que o limite superior
+		#do segundo laco.Fiz uma gambiarra para funcionar temporariamente
+		for x in xrange(0, len(img)):
+			for y in xrange(0, len(img[0])):
+				result[img[x][y]] = (result[img[x][y]]) + 1
+	print result
+
 #-------------------testando funcoes------------------------
 #print imread ('gostosa.jpg') #segunda questao letra a
 #print imread ('gostosa.tif') #segunda questao letra b
@@ -93,5 +176,25 @@ def negative(imagem):
 #print imreadgray('gostosa.tif') #sexta questao
 #print imshow('gostosa.jpg') #setima questao
 #print imshow('gostosa.tif') #setima questao
-#imshow('gostosa.tif')
-negative('gostosa.jpg')
+#thresh('gostosa.jpg', 100) #oitava questao
+#negative('gostosa.jpg') #nona questao
+contrast('gostosa.jpg', 0.761354, 1000)
+
+
+'''SCRATCHPAD
+=========================SATURACAO===================
+newImg[x][y][0] = r*(img[x][y][0]-m)+m
+if (newImg[x][y][0] >= 255):
+    newImg[x][y][0]  = 255
+elif (newImg[x][y][0] <= 0):
+    newImg[x][y][0] = 0
+newImg[x][y][1] = r*(img[x][y][1]-m)+m
+if (newImg[x][y][1] >= 255):
+    newImg[x][y][1]  = 255
+elif (newImg[x][y][1] <= 0):
+    newImg[x][y][1] = 0
+newImg[x][y][2]= r*(img[x][y][2]-m)+m
+if (newImg[x][y][2]  >= 255):
+    newImg[x][y][2]  = 255
+elif (newImg[x][y][2] <= 0):
+    newImg[x][y][2] = 0
