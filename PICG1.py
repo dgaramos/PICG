@@ -69,17 +69,6 @@ def imshow(imagem):
 		plt.show()
 
 
-#______________Funcao thresh(oitava questao)
-def thresh(imagem,limiar):
-	img = imread(imagem)
-
-
-#_____________Funcao negative(nona questao)
-def negative(imagem):
-	img = imread(imagem)
-	plt.imshow(img, plt_color.norm( 1))
-	plt.show()
-=======
 #_____________Funcao thresh (oitava questao)
 def thresh(imagem, lim):
     img = imread(imagem)
@@ -128,6 +117,24 @@ def negative(imagem):
     #plt.show()
     return newImg
 
+#_____________Funcao contrast (decima questao)
+def contrast(imagem, r, m):
+    img = imread(imagem)
+    newImg = img.copy()
+    if (nchannels(imagem) == 1): #verificando imagem em escala de cinza
+        for x in range(0, len(newImg)): #iterando array em largura e altura
+            for y in range(0, len(newImg[0])):
+                newImg[x][y] = r*(img[x][y]-m)+m
+    else: #verificando imagem RGB
+        for x in range(0, len(newImg)): #iterando array em largura e altura
+            for y in range(0, len(newImg[0])):
+                newImg[x][y][0] = r*(img[x][y][0]-m)+m
+                newImg[x][y][1] = r*(img[x][y][1]-m)+m
+                newImg[x][y][2]= r*(img[x][y][2]-m)+m
+    plt.imshow(newImg) #Convertendo ndarray para pyplot
+    plt.show()
+    return newImg
+
 #-------------------testando funcoes------------------------
 #print imread ('gostosa.jpg') #segunda questao letra a
 #print imread ('gostosa.tif') #segunda questao letra b
@@ -141,5 +148,26 @@ def negative(imagem):
 #print imreadgray('gostosa.tif') #sexta questao
 #print imshow('gostosa.jpg') #setima questao
 #print imshow('gostosa.tif') #setima questao
-thresh('gostosa.jpg', 100)
+#thresh('gostosa.jpg', 100) #oitava questao
 #negative('gostosa.jpg') #nona questao
+contrast('gostosa.jpg', 0.761354, 1000)
+
+
+'''SCRATCHPAD
+=========================SATURACAO===================
+newImg[x][y][0] = r*(img[x][y][0]-m)+m
+if (newImg[x][y][0] >= 255):
+    newImg[x][y][0]  = 255
+elif (newImg[x][y][0] <= 0):
+    newImg[x][y][0] = 0
+newImg[x][y][1] = r*(img[x][y][1]-m)+m
+if (newImg[x][y][1] >= 255):
+    newImg[x][y][1]  = 255
+elif (newImg[x][y][1] <= 0):
+    newImg[x][y][1] = 0
+newImg[x][y][2]= r*(img[x][y][2]-m)+m
+if (newImg[x][y][2]  >= 255):
+    newImg[x][y][2]  = 255
+elif (newImg[x][y][2] <= 0):
+    newImg[x][y][2] = 0
+'''
