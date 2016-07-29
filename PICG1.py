@@ -17,7 +17,7 @@ def imread (imagem): #inserindo imagem por parametro
 #_____________Funcao nchannels (terceira questao)
 def nchannels (imagem): #inserindo imagem por parametro
     img = imread(imagem) #Convertendo a imagem para ndarray
-#verificando se a imagem tem mais de uma cor
+    #verificando se a imagem tem mais de uma cor
     try:
         return len(img[0][0])
     except:
@@ -31,23 +31,13 @@ def size (imagem): #inserindo imagem por parametro
 
 #_____________Funcao rgb2gray (quinta questao)
 def rgb2gray(imagem):
-	if (nchannels(imagem) == 3):
-		img = imread(imagem)#Convertendo a imagem para ndarray
-		gray = np.dot(img[...,:3],[0.299, 0.587, 0.144])#Multiplicacao de matrizes: a matriz da imagem pelo vetor de pesos.
-		return gray
-	else:
-		print "Essa imagem ja esta em escala de cinza.\nPor favor insira uma imagem RGB para que possa ser convertida"
-
-#_____________Funcao rgb2gray2 (quinta questao)
-def rgb2gray2(imagem):
 	img = imread(imagem) #Convertendo a imagem para ndarray
-	try:
-		gray = np.dot(img[...,:3],[0.299, 0.587, 0.144])#Multiplicacao de matrizes: a matriz da imagem pelo vetor de pesos.
-		plt.imshow(gray, cmap = plt.get_cmap('gray'))
-		plt.show()#Imprime a imagem
-	except:
-		plt.imshow(img, cmap = plt.get_cmap('gray')) #Convertendo ndarray para pyplot
-		plt.show() #imprimindo ndarray como imagem
+	newimg = img.copy() #Hardcopy
+	if ( nchannels(imagem) == 3): #Se for colorida, converte e retorna a imagem convertida
+		gray = np.dot(newimg[...,:3],[0.299, 0.587, 0.144])#Multiplicacao de matrizes: a matriz da imagem pelo vetor de pesos.
+		return gray
+	else: # Se nao for, retorna a imagem
+		return newimg
 
 
 #_____________Funcao imreadgray (sexta questao)
@@ -60,12 +50,13 @@ def imreadgray(imagem):
 #_____________Funcao imshow (setima questao)
 def imshow(imagem):
 	img = imread(imagem)
+	newimg = img.copy() #Hardcopy da imagem
 	if (nchannels(imagem) != 3):
 		#Se a imagem for cinza
-		plt.imshow(img,cmap = plt.get_cmap('gray'),interpolation="nearest")
+		plt.imshow(newimg,cmap = plt.get_cmap('gray'),interpolation="nearest")
 		plt.show()
 	else:
-		image=plt.imshow(img, interpolation="nearest")
+		image=plt.imshow(newimg, interpolation="nearest")
 		plt.show()
 
 
@@ -165,7 +156,7 @@ def hist(imagem):
 #print nchannels('gostosa.tif') #terceira questao com escala de cinza
 #print nchannels('gostosa.jpg') #terceira questao com RGB
 #print size ('gostosa.jpg') #imprimindo quarta questao
-#print rgb2gray('gostosa.jpg') #quinta questao
+#print rgb2gray('gostosa.tif')#quinta questao
 #print rgb2gray('gostosa.tif') #quinta questao
 #print imreadgray('gostosa.jpg') #sexta questao
 #print imreadgray('gostosa.tif') #sexta questao
@@ -174,7 +165,7 @@ def hist(imagem):
 #thresh('gostosa.jpg', 100) #oitava questao
 #negative('gostosa.jpg') #nona questao
 #contrast('gostosa.jpg', 0.761354, 1000)
-print hist('gostosa.tif')
+#print hist('gostosa.tif')
 
 '''SCRATCHPAD
 =========================SATURACAO===================
