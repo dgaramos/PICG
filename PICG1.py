@@ -55,6 +55,58 @@ def imshow(imagem):
 		plt.imshow(img, cmap = plt.get_cmap('gray')) #Convertendo ndarray para pyplot
 		plt.show() #imprimindo ndarray como imagem
 
+#_____________Funcao thresh (oitava questao)
+def thresh(imagem, lim):
+    img = imread(imagem)
+    newImg = img.copy()
+    if (nchannels(imagem) == 1): #verificando imagem em escala de cinza
+        for x in range(0, len(newImg)): #iterando array em largura e altura
+            for y in range(0, len(newImg[0])):
+                if (newImg[x][y] >= lim): #Verificando limiar
+                    newImg[x][y] = 255
+                else:
+                    newImg[x][y] = 0
+    else: #verificando imagem RGB
+        for x in range(0, len(newImg)): #iterando array em largura e altura
+            for y in range(0, len(newImg[0])):
+                if (newImg[x][y][0] >= lim): #Verificando limiar
+                    newImg[x][y][0] = 255
+                else:
+                    newImg[x][y][0] = 0
+                if (newImg[x][y][1] >= lim):
+                    newImg[x][y][1] = 255
+                else:
+                    newImg[x][y][1] = 0
+                if (newImg[x][y][2] >= lim):
+                    newImg[x][y][2] = 255
+                else:
+                    newImg[x][y][2] = 0
+    #plt.imshow(newImg) #Convertendo ndarray para pyplot
+    #plt.show()
+    return newImg
+
+
+#_____________Funcao negative (nona questao)
+def negative(imagem):
+    img = imread(imagem)
+    newImg = img.copy()
+    if (nchannels(imagem) == 1): #verificando imagem em escala de cinza
+        for x in range(0, len(newImg)): #iterando array em largura e altura
+            for y in range(0, len(newImg[0])):
+                newImg[x][y] = 255 - newImg[x][y] #Invertendo a imagem
+    else: #verificando imagem RGB
+        for x in range(0, len(newImg)): #iterando array em largura e altura
+            for y in range(0, len(newImg[0])):
+                newImg[x][y][0] = 255 - newImg[x][y][0] #Invertendo a imagem 
+                newImg[x][y][1] = 255 - newImg[x][y][1]
+                newImg[x][y][2] = 255 - newImg[x][y][2]
+    #plt.imshow(newImg) #Convertendo ndarray para pyplot
+    #plt.show()
+    return newImg
+
+
+
+
 #-------------------testando funcoes------------------------
 #print imread ('gostosa.jpg') #segunda questao letra a
 #print imread ('gostosa.tif') #segunda questao letra b
@@ -68,3 +120,5 @@ def imshow(imagem):
 #print imreadgray('gostosa.tif') #sexta questao
 #print imshow('gostosa.jpg') #setima questao
 #print imshow('gostosa.tif') #setima questao
+thresh('gostosa.jpg', 100)
+#negative('gostosa.jpg') #nona questao
