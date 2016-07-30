@@ -17,7 +17,7 @@ def imread (imagem): #inserindo imagem por parametro
 #_____________Funcao nchannels (terceira questao)
 def nchannels (imagem): #inserindo imagem por parametro
     img = imread(imagem) #Convertendo a imagem para ndarray
-#verificando se a imagem tem mais de uma cor
+    #verificando se a imagem tem mais de uma cor
     try:
         return len(img[0][0])
     except:
@@ -31,23 +31,13 @@ def size (imagem): #inserindo imagem por parametro
 
 #_____________Funcao rgb2gray (quinta questao)
 def rgb2gray(imagem):
-	if (nchannels(imagem) == 3):
-		img = imread(imagem)#Convertendo a imagem para ndarray
-		gray = np.dot(img[...,:3],[0.299, 0.587, 0.144])#Multiplicacao de matrizes: a matriz da imagem pelo vetor de pesos.
-		return gray
-	else:
-		print "Essa imagem ja esta em escala de cinza.\nPor favor insira uma imagem RGB para que possa ser convertida"
-
-#_____________Funcao rgb2gray2 (quinta questao)
-def rgb2gray2(imagem):
 	img = imread(imagem) #Convertendo a imagem para ndarray
-	try:
-		gray = np.dot(img[...,:3],[0.299, 0.587, 0.144])#Multiplicacao de matrizes: a matriz da imagem pelo vetor de pesos.
-		plt.imshow(gray, cmap = plt.get_cmap('gray'))
-		plt.show()#Imprime a imagem
-	except:
-		plt.imshow(img, cmap = plt.get_cmap('gray')) #Convertendo ndarray para pyplot
-		plt.show() #imprimindo ndarray como imagem
+	newimg = img.copy() #Hardcopy
+	if ( nchannels(imagem) == 3): #Se for colorida, converte e retorna a imagem convertida
+		gray = np.dot(newimg[...,:3],[0.299, 0.587, 0.144])#Multiplicacao de matrizes: a matriz da imagem pelo vetor de pesos.
+		return gray
+	else: # Se nao for, retorna a imagem
+		return newimg
 
 
 #_____________Funcao imreadgray (sexta questao)
@@ -60,25 +50,105 @@ def imreadgray(imagem):
 #_____________Funcao imshow (setima questao)
 def imshow(imagem):
 	img = imread(imagem)
-	if (nchannels(imagem) != 3): 
+	newimg = img.copy() #Hardcopy da imagem
+	if (nchannels(imagem) != 3):
 		#Se a imagem for cinza
-		plt.imshow(img,cmap = plt.get_cmap('gray'),interpolation="nearest")
+		plt.imshow(newimg,cmap = plt.get_cmap('gray'),interpolation="nearest")
 		plt.show()
 	else:
-		image=plt.imshow(img, interpolation="nearest")
+		image=plt.imshow(newimg, interpolation="nearest")
 		plt.show()
 
 
-#______________Funcao thresh(oitava questao)
-def thresh(imagem,limiar):
-	img = imread(imagem)
-		
+#_____________Funcao thresh (oitava questao)
+def thresh(imagem, lim):
+    img = imread(imagem)
+    newImg = img.copy()
+    if (nchannels(imagem) == 1): #verificando imagem em escala de cinza
+        for x in range(0, len(newImg)): #iterando array em largura e altura
+            for y in range(0, len(newImg[0])):
+                if (newImg[x][y] >= lim): #Verificando limiar
+                    newImg[x][y] = 255
+                else:
+                    newImg[x][y] = 0
+    else: #verificando imagem RGB
+        for x in range(0, len(newImg)): #iterando array em largura e altura
+            for y in range(0, len(newImg[0])):
+                if (newImg[x][y][0] >= lim): #Verificando limiar
+                    newImg[x][y][0] = 255
+                else:
+                    newImg[x][y][0] = 0
+                if (newImg[x][y][1] >= lim):
+                    newImg[x][y][1] = 255
+                else:
+                    newImg[x][y][1] = 0
+                if (newImg[x][y][2] >= lim):
+                    newImg[x][y][2] = 255
+                else:
+                    newImg[x][y][2] = 0
+    #plt.imshow(newImg) #Convertendo ndarray para pyplot
+    #plt.show()
+    return newImg
 
-#_____________Funcao negative(nona questao)
+#_____________Funcao negative (nona questao)
 def negative(imagem):
+    img = imread(imagem)
+    newImg = img.copy()
+    if (nchannels(imagem) == 1): #verificando imagem em escala de cinza
+        for x in range(0, len(newImg)): #iterando array em largura e altura
+            for y in range(0, len(newImg[0])):
+                newImg[x][y] = 255 - newImg[x][y] #Invertendo a imagem
+    else: #verificando imagem RGB
+        for x in range(0, len(newImg)): #iterando array em largura e altura
+            for y in range(0, len(newImg[0])):
+                newImg[x][y][0] = 255 - newImg[x][y][0] #Invertendo a imagem
+                newImg[x][y][1] = 255 - newImg[x][y][1]
+                newImg[x][y][2] = 255 - newImg[x][y][2]
+    #plt.imshow(newImg) #Convertendo ndarray para pyplot
+    #plt.show()
+    return newImg
+
+#_____________Funcao contrast (decima questao)
+def contrast(imagem, r, m):
+    img = imread(imagem)
+    newImg = img.copy()
+    if (nchannels(imagem) == 1): #verificando imagem em escala de cinza
+        for x in range(0, len(newImg)): #iterando array em largura e altura
+            for y in range(0, len(newImg[0])):
+                newImg[x][y] = r*(img[x][y]-m)+m
+    else: #verificando imagem RGB
+        for x in range(0, len(newImg)): #iterando array em largura e altura
+            for y in range(0, len(newImg[0])):
+                newImg[x][y][0] = r*(img[x][y][0]-m)+m
+                newImg[x][y][1] = r*(img[x][y][1]-m)+m
+                newImg[x][y][2]= r*(img[x][y][2]-m)+m
+    plt.imshow(newImg) #Convertendo ndarray para pyplot
+    plt.show()
+    return newImg
+
+#_______________Funcao hist (Decia primeira questao)
+def hist(imagem):
+		
 	img = imread(imagem)
-	plt.imshow(img, plt_color.norm( 1))
-	plt.show()
+	tamanho = size(imagem)
+	resultado_colorido = [[0 for x in range(3)] for y in range(256)] #Cria uma matriz de 3 coluna e 255 linhas
+	resultado_cinza = [0 for x in range (256)] #Cria um vetor de 255 posicoes
+
+	if (nchannels(imagem) == 3):#Imagem colorida
+		for x in range(0, len(img)): 	#Eixo x
+			for y in xrange(0, len(img[0])): #Eixo y
+				resultado_colorido[img[x][y][0]] [0] = (resultado_colorido[img[x][y][0]][0]) + 1 #R
+				resultado_colorido[img[x][y][1]] [1] = (resultado_colorido[img[x][y][1]][0]) + 1 #G
+				resultado_colorido[img[x][y][2]] [2] = (resultado_colorido[img[x][y][0]][0]) + 1 #B
+		return resultado_colorido
+
+	else: #Imagem cinza
+		for x in xrange(0, len(img)):
+			for y in xrange(0, len(img[0])):
+				resultado_cinza[img[x][y]] = (resultado_cinza[img[x][y]]) + 1
+		return resultado_cinza
+	
+
 #-------------------testando funcoes------------------------
 #print imread ('gostosa.jpg') #segunda questao letra a
 #print imread ('gostosa.tif') #segunda questao letra b
@@ -86,11 +156,31 @@ def negative(imagem):
 #print nchannels('gostosa.tif') #terceira questao com escala de cinza
 #print nchannels('gostosa.jpg') #terceira questao com RGB
 #print size ('gostosa.jpg') #imprimindo quarta questao
-#print rgb2gray('gostosa.jpg') #quinta questao
+#print rgb2gray('gostosa.tif')#quinta questao
 #print rgb2gray('gostosa.tif') #quinta questao
 #print imreadgray('gostosa.jpg') #sexta questao
 #print imreadgray('gostosa.tif') #sexta questao
 #print imshow('gostosa.jpg') #setima questao
 #print imshow('gostosa.tif') #setima questao
-#imshow('gostosa.tif')
-negative('gostosa.jpg')
+#thresh('gostosa.jpg', 100) #oitava questao
+#negative('gostosa.jpg') #nona questao
+#contrast('gostosa.jpg', 0.761354, 1000)
+#print hist('gostosa.tif')
+
+'''SCRATCHPAD
+=========================SATURACAO===================
+newImg[x][y][0] = r*(img[x][y][0]-m)+m
+if (newImg[x][y][0] >= 255):
+    newImg[x][y][0]  = 255
+elif (newImg[x][y][0] <= 0):
+    newImg[x][y][0] = 0
+newImg[x][y][1] = r*(img[x][y][1]-m)+m
+if (newImg[x][y][1] >= 255):
+    newImg[x][y][1]  = 255
+elif (newImg[x][y][1] <= 0):
+    newImg[x][y][1] = 0
+newImg[x][y][2]= r*(img[x][y][2]-m)+m
+if (newImg[x][y][2]  >= 255):
+    newImg[x][y][2]  = 255
+elif (newImg[x][y][2] <= 0):
+    newImg[x][y][2] = 0'''
