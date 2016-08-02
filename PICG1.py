@@ -148,15 +148,145 @@ def hist(imagem):
 
 #_______________Funcao showhist( Decima segunda questao)
 def showhist(imagem):
-	img = hist(imagem)
-	plt.hist(img,5,range=(0,256))
-	plt.show()
+	try:
+		red_pixels 		= [0 for x in range(256)]
+		green_pixels 	= [0 for x in range(256)]	
+		blue_pixels 	= [0 for x in range(256)]
+		
+		for x in xrange(0,256):
+			red_pixels[x] 		= imagem[x][0]
+			green_pixels[x] 	= imagem[x][1]
+			blue_pixels[x]		= imagem[x][2]
+
+		fig, ax = plt.subplots()
+		index = np.arange(256)
+		bar_width = 0.10
+		opacity = 0.8	
+			 
+		red = plt.bar(index, red_pixels, bar_width,
+				           alpha=opacity,
+				           color='r',
+				           label='Red')
+		 
+		green = plt.bar(index + bar_width, green_pixels, bar_width,
+				           alpha=opacity,
+				           color='g',
+				           label='Green')
+
+		blue = plt.bar(index + (bar_width * 2), blue_pixels, bar_width,
+				           alpha=opacity,
+				           color='b',
+				           label='Blue')
+
+		plt.xlabel('Intensidade')
+		plt.ylabel('Frequencia')
+		plt.title('Histograma')
+		plt.xticks(index + bar_width, range(0,256))
+		plt.legend()
+		 
+		plt.tight_layout()
+		plt.show()
+	
+	except:
+		gray_pixels = [0 for x in range(256)]
+		for x in range(0,256):
+			gray_pixels[x] = imagem[x]
+
+		fig, ax = plt.subplots()
+		index = np.arange(256)
+		bar_width = 0.10
+		opacity = 0.8	
+
+		gray = plt.bar(index, gray_pixels, bar_width,
+				           alpha=opacity,
+				           color='g',
+				           label='Gray')
+
+		plt.xlabel('Intensidade')
+		plt.ylabel('Frequencia')
+		plt.title('Histograma')
+		plt.xticks(index, range(0,256))
+		plt.legend()
+		 
+		plt.tight_layout()
+		plt.show()
+		
+				
 
 #_______________Funcao showhist ( Decima terceira questao)
 def showhist2(imagem,bin):
-	img = hist(imagem)
-	plt.hist(img,bin,range=(0,256))
-	plt.show()
+	
+	try:
+		red_pixels 		= [0 for x in range(256)]
+		green_pixels 	= [0 for x in range(256)]	
+		blue_pixels 	= [0 for x in range(256)]
+		counter = 0
+		for x in xrange(0,256):		
+			if( x % bin == 0 and x != 0):
+				counter +=1				
+			
+			red_pixels[counter] 		+= imagem[x][0]
+			green_pixels[counter] 	+= imagem[x][1]
+			blue_pixels[counter] 	+= imagem[x][2]
+			
+		fig, ax = plt.subplots()
+		index = np.arange(256)
+		bar_width = 0.10
+		opacity = 0.8	
+			 
+		red = plt.bar(index, red_pixels, bar_width,
+				           alpha=opacity,
+				           color='r',
+				           label='Red')
+		 
+		green = plt.bar(index + bar_width, green_pixels, bar_width,
+				           alpha=opacity,
+				           color='g',
+				           label='Green')
+
+		blue = plt.bar(index + (bar_width * 2), blue_pixels, bar_width,
+				           alpha=opacity,
+				           color='b',
+				           label='Blue')
+
+		plt.xlabel('Intensidade')
+		plt.ylabel('Frequencia')
+		plt.title('Histograma')
+		plt.xticks(index + bar_width, range(0,256/bin))
+		plt.legend()
+		 
+		plt.tight_layout()
+		plt.show()
+	
+	except:
+		
+		gray_pixels = [0 for x in range(0,256)]
+		counter = 0
+		
+		for x in range(0,256):
+			if( x % bin == 0 and x != 0):
+				counter +=1					
+			gray_pixels[counter] += imagem[x]
+			
+	
+		fig, ax = plt.subplots()
+		index = np.arange(256)
+		bar_width = 0.102
+		opacity = 0.8	
+
+		gray = plt.bar(index, gray_pixels, bar_width,
+				           alpha=opacity,
+				           color='g',
+				           label='Gray')
+
+		plt.xlabel('Intensidade')
+		plt.ylabel('Frequencia')
+		plt.title('Histograma')
+		plt.xticks(index, range(0,256/bin))
+		plt.legend()
+		 
+		plt.tight_layout()
+		plt.show()
 
 #-------------------testando funcoes------------------------
 #print imread ('gostosa.jpg') #segunda questao letra a
@@ -175,8 +305,8 @@ def showhist2(imagem,bin):
 #negative('gostosa.jpg') #nona questao
 #contrast('gostosa.jpg', 0.761354, 1000)
 #print hist('gostosa.tif')
-#showhist('gostosa.tif')
-#showhist2('gostosa.tif',2)
+showhist2(hist('gostosa.jpg'),5)
+#showhist2(showhist('gostosa.tif'),5)
 
 '''SCRATCHPAD
 =========================SATURACAO===================
