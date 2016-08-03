@@ -36,7 +36,6 @@ def rgb2gray(img):
 	else: # Se nao for, retorna a imagem
 		return newImg
 
-
 #_____________Funcao imreadgray (sexta questao)
 def imreadgray(img):
 	if (nchannels(img) == 3):
@@ -81,8 +80,6 @@ def thresh(img, lim):
                     newImg[x][y][2] = 255
                 else:
                     newImg[x][y][2] = 0
-    #plt.imshow(newImg) #Convertendo ndarray para pyplot
-    #plt.show()
     return newImg
 
 #_____________Funcao negative (nona questao)
@@ -98,8 +95,6 @@ def negative(img):
                 newImg[x][y][0] = 255 - newImg[x][y][0] #Invertendo a imagem
                 newImg[x][y][1] = 255 - newImg[x][y][1]
                 newImg[x][y][2] = 255 - newImg[x][y][2]
-    #plt.imshow(newImg) #Convertendo ndarray para pyplot
-    #plt.show()
     return newImg
 
 #_____________Funcao contrast (decima questao)
@@ -131,8 +126,6 @@ def contrast(img, r, m):
                     newImg[x][y][2]  = 255
                 elif (tmp <= 0):
                     newImg[x][y][2] = 0
-    #plt.imshow(newImg) #Convertendo ndarray para pyplot
-    #plt.show()
     return newImg
 
 #_______________Funcao hist (Decia primeira questao)
@@ -219,8 +212,6 @@ def showhist(imagem):
 		plt.tight_layout()
 		plt.show()
 
-
-
 #_______________Funcao showhist ( Decima terceira questao)
 def showhist2(imagem,bin):
 
@@ -296,25 +287,34 @@ def showhist2(imagem,bin):
 		plt.tight_layout()
 		plt.show()
 
+#_______________Funcao convolve ( Decima quinta questao)
+def convolve(img,mask):
+
+
+
 #-------------------testando funcoes------------------------
-#print imread ('gostosa.jpg') #segunda questao letra a
-#print imread ('gostosa.tif') #segunda questao letra b
+
+scarlet = imread('gostosa.jpg')
+scarletG = imread('gostosa.tif')
+
+#print scarlet #segunda questao letra a
+#print scarletG #segunda questao letra b
 #print imread ('50x50.gif') #segunda questao letra c
-#print nchannels(imread('gostosa.tif')) #terceira questao com escala de cinza
-#print nchannels(imread('gostosa.jpg')) #terceira questao com RGB
-#print size (imread('gostosa.jpg')) #imprimindo quarta questao
-#print rgb2gray(imread('gostosa.jpg'))#quinta questao
-#print rgb2gray(imread('gostosa.tif')) #quinta questao
-#print imreadgray(imread('gostosa.jpg')) #sexta questao
-#imshow(imread('gostosa.jpg')) #setima questao
-#print imreadgray(imread('gostosa.tif) #sexta questao
-#imshow(imread('gostosa.jpg')) #setima questao
-#imshow(imread('gostosa.tif')) #setima questao
-#imshow(thresh(imread('gostosa.jpg'), 100)) #oitava questao
-#imshow(negative(imread('gostosa.jpg'))) #nona questao
-#imshow(contrast(imread('gostosa.jpg'), 3.0, 128))
-#print hist(imread('gostosa.tif'))
-#showhist(hist(imread('gostosa.jpg')))
-#showhist(hist(imread('gostosa.tif')))
-showhist2(hist(imread('gostosa.jpg')),5)
-#showhist2(hist(imread('gostosa.tif')),5)
+#print nchannels(scarlet) #terceira questao com RGB
+#print nchannels(scarletG) #terceira questao com escala de cinza
+#print size (scarlet) #imprimindo quarta questao
+#print rgb2gray(scarlet)#quinta questao
+#print rgb2gray(scarletG) #quinta questao
+#print imreadgray(scarlet) #sexta questao
+#imshow(scarlet) #setima questao
+#print imreadgray(scarletG) #sexta questao
+#imshow(scarlet) #setima questao
+#imshow(scarletG) #setima questao
+#imshow(thresh(scarlet, 100)) #oitava questao
+#imshow(negative(scarlet)) #nona questao
+#imshow(contrast(scarlet, 3.0, 128))
+#print hist(scarletG)
+#showhist(hist(scarlet))
+#showhist(hist(scarlet))
+showhist2(hist(scarlet),5)
+#showhist2(hist(scarlet),5)
