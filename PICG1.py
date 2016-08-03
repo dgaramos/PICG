@@ -213,37 +213,39 @@ def showhist(imagem):
 		plt.show()
 
 #_______________Funcao showhist ( Decima terceira questao)
+#_______________Funcao showhist ( Decima terceira questao)
 def showhist2(imagem,bin):
-
+	
 	try:
-		red_pixels 		= [0 for x in range(256)]
-		green_pixels 	= [0 for x in range(256)]
-		blue_pixels 	= [0 for x in range(256)]
+		red_pixels 		= [0 for x in range(256+1/bin)]
+		green_pixels 	= [0 for x in range(256+1/bin)]	
+		blue_pixels 	= [0 for x in range(256+1/bin)]
 		counter = 0
-		for x in xrange(0,256):
+		print 'okau'			
+		for x in xrange(0,256):		
 			if( x % bin == 0 and x != 0):
-				counter +=1
-
+				counter +=1				
+			
 			red_pixels[counter] 		+= imagem[x][0]
 			green_pixels[counter] 	+= imagem[x][1]
 			blue_pixels[counter] 	+= imagem[x][2]
-
+		print 'okau'	
 		fig, ax = plt.subplots()
-		index = np.arange(256)
-		bar_width = 0.10
-		opacity = 0.8
-
+		index = np.arange(256+1/bin)
+		bar_width = 0.15
+		opacity = 0.8	
+			 
 		red = plt.bar(index, red_pixels, bar_width,
 				           alpha=opacity,
 				           color='r',
 				           label='Red')
-
+		 
 		green = plt.bar(index + bar_width, green_pixels, bar_width,
 				           alpha=opacity,
 				           color='g',
 				           label='Green')
 
-		blue = plt.bar(index + (bar_width * 2), blue_pixels, bar_width,
+		blue = plt.bar(index + (bar_width*2), blue_pixels, bar_width,
 				           alpha=opacity,
 				           color='b',
 				           label='Blue')
@@ -253,25 +255,25 @@ def showhist2(imagem,bin):
 		plt.title('Histograma')
 		plt.xticks(index + bar_width, range(0,256/bin))
 		plt.legend()
-
+		 
 		plt.tight_layout()
 		plt.show()
-
+	
 	except:
-
-		gray_pixels = [0 for x in range(0,256)]
+		
+		gray_pixels = [0 for x in range(0,256/bin)]
 		counter = 0
-
+		
 		for x in range(0,256):
 			if( x % bin == 0 and x != 0):
-				counter +=1
+				counter +=1					
 			gray_pixels[counter] += imagem[x]
-
-
+			
+	
 		fig, ax = plt.subplots()
-		index = np.arange(256)
+		index = np.arange(256/bin)
 		bar_width = 0.102
-		opacity = 0.8
+		opacity = 0.8	
 
 		gray = plt.bar(index, gray_pixels, bar_width,
 				           alpha=opacity,
@@ -283,9 +285,10 @@ def showhist2(imagem,bin):
 		plt.title('Histograma')
 		plt.xticks(index, range(0,256/bin))
 		plt.legend()
-
+		 
 		plt.tight_layout()
 		plt.show()
+
 
 #_______________Funcao convolve ( Decima quinta questao)
 def convolve(img,mask):
