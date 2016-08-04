@@ -132,25 +132,25 @@ def contrast(img, r, m):
 def hist(img):
 	tamanho = size(img)
 	if (nchannels(img) == 3):#Imagem colorida
-		resultado_colorido = [[0 for x in range(3)] for y in range(256)] #Cria uma matriz de 3 coluna e 255 linhas
+		resultado_colorido = [[0 for x in range(3)] for y in range(256)] #Cria uma matriz de 3 coluna e 256 linhas
 		for x in xrange(0, len(img)): 	#Eixo x
 			for y in xrange(0, len(img[0])): #Eixo y
 				resultado_colorido[img[x][y][0]] [0] = (resultado_colorido[img[x][y][0]][0]) + 1 #R
-				resultado_colorido[img[x][y][1]] [1] = (resultado_colorido[img[x][y][1]][0]) + 1 #G
-				resultado_colorido[img[x][y][2]] [2] = (resultado_colorido[img[x][y][0]][0]) + 1 #B
+				resultado_colorido[img[x][y][1]] [1] = (resultado_colorido[img[x][y][1]][1]) + 1 #G
+				resultado_colorido[img[x][y][2]] [2] = (resultado_colorido[img[x][y][2]][2]) + 1 #B
 		return resultado_colorido
 
 	else: #Imagem cinza
-		resultado_cinza = [0 for x in range (256)] #Cria um vetor de 255 posicoes
-		for x in xrange(0, len(img)):
-			for y in xrange(0, len(img[0])):
+		resultado_cinza = [0 for x in range (256)] #Cria um vetor de 256 posicoes
+		for x in xrange(0, tamanho[1]):
+			for y in xrange(0, tamanho[0]):
 				resultado_cinza[img[x][y]] = (resultado_cinza[img[x][y]]) + 1
 		return resultado_cinza
 
 #_______________Funcao showhist( Decima segunda questao)
 def showhist(imagem):
 	try:
-		red_pixels 		= [0 for x in range(256)]
+		red_pixels 	= [0 for x in range(256)]
 		green_pixels 	= [0 for x in range(256)]
 		blue_pixels 	= [0 for x in range(256)]
 
@@ -289,9 +289,51 @@ def showhist2(imagem,bin):
 		plt.tight_layout()
 		plt.show()
 
+'''
+Observacao quanto a essa questao e que apesar de quando coloca para imprimir pelo comando print, o resultado mostrado e diferente 
+do resultado quando se acessa as posicoes finais do array, por exemplo no caso de scarletG, o valor 253 nao aparece no print se nao me engano,
+mas no valor 254 a soma das probabilidaddes e 1, chegando a conclusao de que esta certo(Nao tem nenhum valor com intensidade 256, logo a probabilidade dele acontecer e 0 e portanto a soma das probabilidades em 254 e 0.
+'''
+#_______________Funcao histeq (Decima quarta questao)
+def histeq(imagem):
+	dimensoes = size(imagem)
+	histograma = hist(imagem)
+	npixels = dimensoes[0] * dimensoes[1]#	Numero de pixels
+	try:	
+		probabilidade = [[0 for x in range(3)] for y in range(256)]
+		for x in xrange(0,256):
+			probabilidade[x][0] = histograma[x][0]/(npixels * 1.0)
+			probabilidade[x][1] = histograma[x][1]/(npixels * 1.0)
+			probabilidade[x][2] = histograma[x][2]/(npixels * 1.0)
+		
+		histograma_equalizado = [[0 for x in range(3)] for y in range(256)]
+		histograma_equalizado[0][0] = probabilidade[0][0]
+		histograma_equalizado[0][1] = probabilidade[0][1]
+		histograma_equalizado[0][2] = probabilidade[0][2]	
+		
+		for x in xrange(1,256):
+			histograma_equalizado[x][0] = probabilidade[x][0] + histograma_equalizado[x -1][0]
+			histograma_equalizado[x][1] = probabilidade[x][1] + histograma_equalizado[x -1][1]
+			histograma_equalizado[x][2] = probabilidade[x][2] + histograma_equalizado[x -1][2]
+		
+		return histograma_equalizado
+	except:
+		probabilidade = [0.0 for x in range(0,256)]
+		
+		for x in range(0,256):
+			probabilidade[x] = histograma[x]/(npixels * 1.0)
+
+		histograma_equalizado 	 = [0 for x in range(0,256)]
+		histograma_equalizado[0] = probabilidade[0]
+
+		for x in range(1,256):
+			histograma_equalizado[x] = probabilidade[x] + histograma_equalizado[x-1]	
+		
+		return histograma_equalizado
+
 
 #_______________Funcao convolve ( Decima quinta questao)
-def convolve(img,mask):
+#def convolve(img,mask):
 
 
 
@@ -299,13 +341,12 @@ def convolve(img,mask):
 
 scarlet = imread('gostosa.jpg')
 scarletG = imread('gostosa.tif')
-
 #print scarlet #segunda questao letra a
 #print scarletG #segunda questao letra b
 #print imread ('50x50.gif') #segunda questao letra c
 #print nchannels(scarlet) #terceira questao com RGB
 #print nchannels(scarletG) #terceira questao com escala de cinza
-#print size (scarlet) #imprimindo quarta questao
+#print size (scarletG) #imprimindo quarta questao
 #print rgb2gray(scarlet)#quinta questao
 #print rgb2gray(scarletG) #quinta questao
 #print imreadgray(scarlet) #sexta questao
@@ -316,8 +357,7 @@ scarletG = imread('gostosa.tif')
 #imshow(thresh(scarlet, 100)) #oitava questao
 #imshow(negative(scarlet)) #nona questao
 #imshow(contrast(scarlet, 3.0, 128))
-#print hist(scarletG)
 #showhist(hist(scarlet))
-#showhist(hist(scarlet))
-showhist2(hist(scarlet),5)
+#showhist2(hist(scarlet),5)
+histeq(scarlet)
 #showhist2(hist(scarlet),5)
