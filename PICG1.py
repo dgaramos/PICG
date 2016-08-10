@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 import matplotlib.image as npimg
 import matplotlib.colors as plt_color
 import numpy as np
+import sys
 
 
 #_____________Funcao imread (segunda questao)
@@ -333,14 +334,41 @@ def histeq(imagem):
 
 
 #_______________Funcao convolve ( Decima quinta questao)
-#def convolve(img,mask):
-
+def convolve(img,mask):
+	tamanho = size(img)
+	tamanho_mask = size(mask)
+	print tamanho[0]
+	try:
+		a
+	except:
+		#Para imagens em escala de cinza
+		newImg = img.copy()
+		print size(newImg)
+		for x in xrange(0,tamanho[1]): #Altura
+			for y in xrange(0,tamanho[0]):#Comprimento
+				aux = 0
+				
+				t_inferior = (tamanho_mask[1] -1)/2 * - 1
+				s_inferior = (tamanho_mask[0] -1)/2 * - 1 
+				
+				t_superior = t_inferior * - 1	
+				s_superior = s_inferior * - 1 
+			
+				for s in range(s_inferior,s_superior):
+					for t in range(t_inferior,t_superior):
+					
+						if s >= 0 & t >= 0 and  x + s < tamanho[1] and x + s >= 0 and (y + t < tamanho[0]) and y + t >= 0 : #Evitar de passar posicoes negativas
+							#print y + t
+							aux += newImg[x +s][y + t] * mask[s][t]
+				newImg[x][y] = aux
+		return newImg
 
 
 #-------------------testando funcoes------------------------
 
 scarlet = imread('gostosa.jpg')
 scarletG = imread('gostosa.tif')
+lenaG = imread('lena.jpg')
 #print scarlet #segunda questao letra a
 #print scarletG #segunda questao letra b
 #print imread ('50x50.gif') #segunda questao letra c
@@ -359,5 +387,8 @@ scarletG = imread('gostosa.tif')
 #imshow(contrast(scarlet, 3.0, 128))
 #showhist(hist(scarlet))
 #showhist2(hist(scarlet),5)
-histeq(scarlet)
+#histeq(scarlet)
 #showhist2(hist(scarlet),5)
+vetor = [[0.0625,0.1250,0.0625],[0.125,0.2500,0.1250],[0.0625,0.1250,0.0625]]
+print scarletG
+imshow(convolve(lenaG,vetor))
