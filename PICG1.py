@@ -333,7 +333,6 @@ def histeq(imagem):
 		return histograma_equalizado
 
 
-#_______________Funcao convolve ( Decima quinta questao)
 def convolve(img,mask):
 	tamanho = size(img)
 	tamanho_mask = size(mask)
@@ -343,23 +342,25 @@ def convolve(img,mask):
 	except:
 		#Para imagens em escala de cinza
 		newImg = img.copy()
-		print size(newImg)
+		
+		t_superior =  (tamanho_mask[1] -1)/2  
+		s_superior =  (tamanho_mask[0] -1)/2 
+		
+		aux2 = 0
+		aux = 0
+		for s in range(0,s_superior * 2):
+			for t in range(0,t_superior * 2):
+				aux2 += mask[s][t]
+		
 		for x in xrange(0,tamanho[1]): #Altura
-			for y in xrange(0,tamanho[0]):#Comprimento
-				aux = 0
-				
-				t_inferior = (tamanho_mask[1] -1)/2 * - 1
-				s_inferior = (tamanho_mask[0] -1)/2 * - 1 
-				
-				t_superior = t_inferior * - 1	
-				s_superior = s_inferior * - 1 
-			
-				for s in range(s_inferior,s_superior):
-					for t in range(t_inferior,t_superior):
-					
-						if s >= 0 & t >= 0 and  x + s < tamanho[1] and x + s >= 0 and (y + t < tamanho[0]) and y + t >= 0 : #Evitar de passar posicoes negativas
-							#print y + t
-							aux += newImg[x +s][y + t] * mask[s][t]
+			for y in xrange(0,tamanho[0]):#Comprimento	
+				for s in range(0,s_superior * 2):
+					for t in range(0,t_superior * 2):
+						# Se extrapolar, substitui pelo valor do pixel da borda
+						if (x + s < 0 or y + t < 0 or x + s >= tamanho[1] or y + t >= tamanho[0]):
+							aux += (newImg[x][y] * mask[s][t])/aux2
+						else:
+							aux += (newImg[x +s][y + t] * mask[s][t])/aux2
 				newImg[x][y] = aux
 		return newImg
 
@@ -385,10 +386,13 @@ lenaG = imread('lena.jpg')
 #imshow(thresh(scarlet, 100)) #oitava questao
 #imshow(negative(scarlet)) #nona questao
 #imshow(contrast(scarlet, 3.0, 128))
-#showhist(hist(scarlet))
-#showhist2(hist(scarlet),5)
+#showhist(hist(lenaG))
+#showhist2(hist(lenaG),5)
 #histeq(scarlet)
 #showhist2(hist(scarlet),5)
-vetor = [[0.0625,0.1250,0.0625],[0.125,0.2500,0.1250],[0.0625,0.1250,0.0625]]
-print scarletG
-imshow(convolve(lenaG,vetor))
+#Filtro de média
+vetor = [[0.04,0.04,0.04,0.04,0.04],[0.04,0.04,0.04,0.04,0.04],[0.04,0.04,0.04,0.04,0.04],[0.04,0.04,0.04,0.04,0.04],[0.04,0.04,0.04,0.04,0.04]]
+#print lenaG
+#imshow((scarletG))
+#print scarletG[1][1]
+imshow(convolve(scarletG,vetor))
