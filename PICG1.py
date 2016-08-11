@@ -332,50 +332,41 @@ def histeq(imagem):
 		
 		return histograma_equalizado
 
-
+#__________Questao 15
 def convolve(img,mask):
-	tamanho = size(img)
-	tamanho_mask = size(mask)
+	tamanho = size(img) #Tamanho da imagem
+	tamanho_mask = size(mask) #Tamanho da mascara
 	newImg = img.copy()
-	
+	t_superior =  (tamanho_mask[1] -1)/2  
+	s_superior =  (tamanho_mask[0] -1)/2 
+	aux2 = 0
+	for s in range(0,s_superior * 2):
+		for t in range(0,t_superior * 2):
+			aux2 += mask[s][t]
 	try:
-		t_superior =  (tamanho_mask[1] -1)/2  
-		s_superior =  (tamanho_mask[0] -1)/2 
-		aux2 = 0
-		for s in range(0,s_superior * 2):
-			for t in range(0,t_superior * 2):
-				aux2 += mask[s][t]
-		#Vai armazenar o valor do pixel com os 3 canais
+		#Vai armazenar o valor do pixel com os 3 canais em um vetor de 3 posicoes
 		aux = [0 for x in range(0,3)]
-		#Para imagens em escala de cinza	
+		
 		for x in xrange(0,tamanho[1]): #Altura
 			for y in xrange(0,tamanho[0]):#Comprimento	
 				for s in range(0,s_superior * 2):
 					for t in range(0,t_superior * 2):
 						# Se extrapolar, substitui pelo valor do pixel da borda
 						if (x + s < 0 or y + t < 0 or x + s >= tamanho[1] or y + t >= tamanho[0]):
-							aux[0] += (newImg[x][y][0] * mask[s][t])
-							
-							aux[1] += (newImg[x][y][1] * mask[s][t])
-							aux[2] += (newImg[x][y][2] * mask[s][t])
+							aux[0] += (newImg[x][y][0] * mask[s][t]) #R				
+							aux[1] += (newImg[x][y][1] * mask[s][t]) #G
+							aux[2] += (newImg[x][y][2] * mask[s][t]) #B
 							
 						else:
-							aux[0] += (newImg[x +s][y + t][0] * mask[s][t])
-							aux[1] += (newImg[x +s][y + t][1] * mask[s][t])
-							aux[2] += (newImg[x +s][y + t][2] * mask[s][t])
+							aux[0] += (newImg[x +s][y + t][0] * mask[s][t]) #R
+							aux[1] += (newImg[x +s][y + t][1] * mask[s][t]) #G
+							aux[2] += (newImg[x +s][y + t][2] * mask[s][t]) #B
 							
 				newImg[x][y] = aux
 				aux = 0
 		return newImg
 	except:
 		aux = 0
-		t_superior =  (tamanho_mask[1] -1)/2  
-		s_superior =  (tamanho_mask[0] -1)/2 
-		aux2 = 0
-		for s in range(0,s_superior * 2):
-			for t in range(0,t_superior * 2):
-				aux2 += mask[s][t]
-		#Para imagens em escala de cinza	
 		for x in xrange(0,tamanho[1]): #Altura
 			for y in xrange(0,tamanho[0]):#Comprimento	
 				for s in range(0,s_superior * 2):
@@ -388,6 +379,15 @@ def convolve(img,mask):
 				newImg[x][y] = aux /aux2
 				aux =0
 		return newImg
+
+#______________Questao 16
+def maskblur():
+	return [[0.0625,0.1250,0.0625],[0.125,0.2500,0.1250],[0.0625,0.1250,0.0625]]
+	
+
+#______________Questao 17
+def blur(img):
+	return convolve(img,maskblur())
 
 
 #-------------------testando funcoes------------------------
@@ -418,13 +418,13 @@ sta2noi = imread('sta2noi2.jpg')
 #histeq(scarlet)
 #showhist2(hist(scarlet),5)
 #Filtro de media
-vetor = [[0.04,0.04,0.04,0.04,0.04],[0.04,0.04,0.04,0.04,0.04],[0.04,0.04,0.04,0.04,0.04],[0.04,0.04,0.04,0.04,0.04],[0.04,0.04,0.04,0.04,0.04]]
+filtro1 = [[0.04,0.04,0.04,0.04,0.04],[0.04,0.04,0.04,0.04,0.04],[0.04,0.04,0.04,0.04,0.04],[0.04,0.04,0.04,0.04,0.04],[0.04,0.04,0.04,0.04,0.04]]
 #Filtro de blur
-vetor2 = [[0.0625,0.1250,0.0625],[0.125,0.2500,0.1250],[0.0625,0.1250,0.0625]]
-vetor3 = [[0.111,0.111,0.111],[0.111,0.111,0.111],[0.111,0.111,0.111]]
-vetor4 = [[0.020,0.020,0.020,0.020,0.020,0.020,0.020],[0.020,0.020,0.020,0.020,0.020,0.020,0.020],[0.020,0.020,0.020,0.020,0.020,0.020,0.020],[0.020,0.020,0.020,0.020,0.020,0.020,0.020],[0.020,0.020,0.020,0.020,0.020,0.020,0.020],[0.020,0.020,0.020,0.020,0.020,0.020,0.020],[0.020,0.020,0.020,0.020,0.020,0.020,0.020]]
+filtro2 = [[0.0625,0.1250,0.0625],[0.125,0.2500,0.1250],[0.0625,0.1250,0.0625]]
+filtro3 = [[0.111,0.111,0.111],[0.111,0.111,0.111],[0.111,0.111,0.111]]
+filtro4 = [[0.020,0.020,0.020,0.020,0.020,0.020,0.020],[0.020,0.020,0.020,0.020,0.020,0.020,0.020],[0.020,0.020,0.020,0.020,0.020,0.020,0.020],[0.020,0.020,0.020,0.020,0.020,0.020,0.020],[0.020,0.020,0.020,0.020,0.020,0.020,0.020],[0.020,0.020,0.020,0.020,0.020,0.020,0.020],[0.020,0.020,0.020,0.020,0.020,0.020,0.020]]
 #print lenaG
 #imshow((scarletG))
 #print scarletG[1][1]
-print scarletG
-imshow( convolve(lena,vetor4))
+imshow(lena)
+imshow( blur(lena))
