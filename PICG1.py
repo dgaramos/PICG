@@ -54,7 +54,7 @@ def imshow(img):
     
     if (nchannels(img) != 3):
         #Se a imagem for cinza
-        plt.imshow(newImg,interpolation="nearest")
+        plt.imshow(newImg,cmap = plt.get_cmap('gray'),interpolation="nearest")
         plt.show()
     
     else:
