@@ -142,6 +142,19 @@ def contrast(img, r, m):
                     newImg[x][y][2] = 0
     return newImg
 
+#________________________Funcao imshow2( Letra a) decima questao)
+def imshow2(img):
+    newImg = img.copy() #Hardcopy da imagem
+    
+    if (nchannels(img) != 3):
+        #Se a imagem for cinza
+        plt.imshow(newImg, interpolation="nearest")
+        plt.show()
+    
+    else:
+        image=plt.imshow(newImg, interpolation="nearest")
+        plt.show()
+
 #_______________Funcao hist (Decia primeira questao)
 def hist(img):
     tamanho = size(img)
