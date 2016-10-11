@@ -61,6 +61,17 @@ def imshow(img):
         image=plt.imshow(newImg, interpolation="nearest")
         plt.show()
 
+def imshow2(img):
+    newImg = img.copy() #Hardcopy da imagem
+    
+    if (nchannels(img) != 3):
+        #Se a imagem for cinza
+        plt.imshow(newImg,interpolation="nearest")
+        plt.show()
+    
+    else:
+        image=plt.imshow(newImg, interpolation="nearest")
+        plt.show()
 
 #_____________Funcao thresh (oitava questao)
 def thresh(img, lim):
